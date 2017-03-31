@@ -59,8 +59,7 @@ public class Stylist {
       return false;
     } else {
       Stylist newStylist = (Stylist) otherStylist;
-      return this.getName().equals(newStylist.getName());
-      // && this.getId() == newStylist.getId();
+      return this.getName().equals(newStylist.getName()) && this.getPhone().equals(newStylist.getPhone());
     }
   }
 
@@ -71,5 +70,15 @@ public class Stylist {
       .addParameter("id", this.id)
       .executeAndFetch(Client.class);
     }
-  } 
+  }
+
+  public void update(String name) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE stylists SET name = :name WHERE id = :id;";
+      con.createQuery(sql)
+        .addParameter("name", name)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
 }

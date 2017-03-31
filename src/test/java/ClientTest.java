@@ -22,57 +22,72 @@ public class ClientTest {
 
   @Test
   public void Client_instantiatesCorrectly_true(){
-    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
     assertTrue(testClient instanceof Client);
   }
 
   @Test
   public void getStylistId_instantiatesWithStylistId_true(){
-    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
     assertEquals(1, testClient.getStylistId());
   }
 
   @Test
   public void getName_instantiatesWithName_true(){
-    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
     assertEquals("Barbara", testClient.getName());
   }
 
   @Test
   public void getPhone_instantiatesWithPhone_true(){
-    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
     assertEquals("234-987-2342", testClient.getPhone());
   }
 
   @Test
-  public void all_returnsAllSavedClients() {
-    Client clientOne = new Client(1, "Barbara", "234-987-2342");
-    clientOne.save();
-    Client clientTwo = new Client(1, "Jane", "234-237-2332");
-    clientTwo.save();
-    assertTrue(Client.all().get(0).equals(clientOne));
-    assertTrue(Client.all().get(1).equals(clientTwo));
-  }
-
-  @Test
   public void save_returnsTrueIfClientsAreTheSame() {
-    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
     testClient.save();
     assertTrue(Client.all().get(0).equals(testClient));
   }
 
   @Test
+  public void save_assignsIdToObject() {
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
+    testClient.save();
+    Client savedClient = Client.all().get(0);
+    assertEquals(testClient.getId(), savedClient.getId());
+  }
+
+  @Test
+  public void equals_returnsTrueIfNamesAretheSame() {
+    Client clientOne = new Client("Barbara", "234-987-2342", 1);
+    Client clientTwo = new Client("Jane", "234-237-2332", 1);
+    assertTrue(clientOne.equals(clientTwo));
+  }
+
+  @Test
+  public void all_returnsAllSavedClients_true() {
+    Client clientOne = new Client("Barbara", "234-987-2342", 1);
+    clientOne.save();
+    Client clientTwo = new Client("Jane", "234-237-2332", 1);
+    clientTwo.save();
+    assertEquals(true, Client.all().get(0).equals(clientOne));
+    assertEquals(true, Client.all().get(1).equals(clientTwo));
+  }
+
+  @Test
   public void getId_getClientId_1() {
-    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    Client testClient = new Client("Barbara", "234-987-2342", 1);
     testClient.save();
     assertTrue(testClient.getId() > 0);
   }
 
   @Test
   public void find_returnsClientWithSameId_ratingTwo() {
-    Client clientOne = new Client(1, "Barbara", "234-987-2342");
+    Client clientOne = new Client("Barbara", "234-987-2342", 1);
     clientOne.save();
-    Client clientTwo = new Client(1, "Jane", "234-237-2332");
+    Client clientTwo = new Client("Jane", "234-237-2332", 1);
     clientTwo.save();
     assertEquals(Client.find(clientTwo.getId()), clientTwo);
   }

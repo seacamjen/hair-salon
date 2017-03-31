@@ -73,15 +73,30 @@ public class StylistTest {
    }
 
    @Test
+   public void equals_reuturnsTrueIfIdsAretheSame() {
+     Stylist newStylistOne = new Stylist("Ashley", "805-466-1234");
+     Stylist newStylistTwo = new Stylist("Ashley", "805-466-1234");
+     assertTrue(newStylistOne.equals(newStylistTwo));
+   }
+
+   @Test
    public void getClients_retrievesAllClientsFromDatabase_list(){
      Stylist newStylistOne = new Stylist("Ashley", "805-466-1234");
      newStylistOne.save();
-     Client clientOne = new Client(newStylistOne.getId(), "Barbara", "234-987-2342");
+     Client clientOne = new Client("Barbara", "234-987-2342", newStylistOne.getId());
      clientOne.save();
-     Client clientTwo = new Client(newStylistOne.getId(), "Jane", "234-237-2332");
-     clientTwo.save();         
+     Client clientTwo = new Client("Jane", "234-237-2332", newStylistOne.getId());
+     clientTwo.save();
      Client[] clients = new Client[] {clientOne, clientTwo};
      assertTrue(newStylistOne.getClients().containsAll(Arrays.asList(clients)));
+   }
+
+   @Test
+   public void update_updatesStylist_true() {
+     Stylist newStylist = new Stylist("Ashley", "805-466-1234");
+     newStylist.save();
+     newStylist.update("Ashley Smith");
+     assertEquals("Ashley Smith", Stylist.find(newStylist.getId()).getName());
    }
 
 }
