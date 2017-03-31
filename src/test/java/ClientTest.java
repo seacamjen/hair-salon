@@ -15,7 +15,7 @@ public class ClientTest {
   @After
   public void tearDown() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM clients *;";
+      String sql = "DELETE FROM clients *";
       con.createQuery(sql).executeUpdate();
     }
   }
@@ -62,15 +62,15 @@ public class ClientTest {
   @Test
   public void equals_returnsTrueIfNamesAretheSame() {
     Client clientOne = new Client("Barbara", "234-987-2342", 1);
-    Client clientTwo = new Client("Jane", "234-237-2332", 1);
+    Client clientTwo = new Client("Barbara", "234-987-2342", 1);
     assertTrue(clientOne.equals(clientTwo));
   }
 
   @Test
   public void all_returnsAllSavedClients_true() {
-    Client clientOne = new Client("Barbara", "234-987-2342", 1);
-    clientOne.save();
+    Client clientOne = new Client("Barbara", "234-987-2342", 10);
     Client clientTwo = new Client("Jane", "234-237-2332", 1);
+    clientOne.save();
     clientTwo.save();
     assertEquals(true, Client.all().get(0).equals(clientOne));
     assertEquals(true, Client.all().get(1).equals(clientTwo));
@@ -91,6 +91,25 @@ public class ClientTest {
     clientTwo.save();
     assertEquals(Client.find(clientTwo.getId()), clientTwo);
   }
+
+  @Test
+  public void update_updatesClient_true() {
+    Client clientOne = new Client("Barbara", "234-987-2342", 1);
+    clientOne.save();
+    clientOne.update("Barbara H", "234-187-2342", 2);
+    assertEquals("Barbara H", Client.find(clientOne.getId()).getName());
+    assertEquals("234-187-2342", Client.find(clientOne.getId()).getPhone());
+    assertEquals(2, Client.find(clientOne.getId()).getStylistId());
+  }
+
+  @Test
+   public void delete_deleteClient_true(){
+     Client clientOne = new Client("Barbara", "234-987-2342", 1);
+     clientOne.save();
+     int myClientId = clientOne.getId();
+     clientOne.delete();
+     assertEquals(null, Client.find(myClientId));
+   }
 
 
 

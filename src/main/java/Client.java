@@ -30,6 +30,18 @@ public class Client {
     return id;
   }
 
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO clients (name, phone, stylist_id) VALUES (:name, :phone, :stylist_id);";
+      this.id = (int) con.createQuery(sql, true)
+      .addParameter("stylist_id", stylist_id)
+      .addParameter("name", name)
+      .addParameter("phone", phone)
+      .executeUpdate()
+      .getKey();
+    }
+  }
+
   public static List<Client> all() {
     String sql = "SELECT * FROM clients;";
     try(Connection con = DB.sql2o.open()) {
@@ -54,20 +66,32 @@ public class Client {
       return false;
     } else {
       Client newClient = (Client) otherClient;
-      return this.getStylistId() == newClient.getStylistId();
+      return this.getName().equals(newClient.getName()) &&
+            this.getPhone().equals(newClient.getPhone()) &&
+            this.getStylistId() == newClient.getStylistId();
     }
   }
 
-  public void save() {
+  public void update(String name, String phone, int stylist_id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO clients (stylist_id, name, phone) VALUES (:stylist_id, :name, :phone);";
-      this.id = (int) con.createQuery(sql, true)
-      .addParameter("stylist_id", stylist_id)
-      .addParameter("name", name)
-      .addParameter("phone", phone)
-      .executeUpdate()
-      .getKey();
+      String sql = "UPDATE clients SET name = :name, phone = :phone, stylist_id = :stylist_id WHERE id = :id;";
+      con.createQuery(sql)
+        .addParameter("name", name)
+        .addParameter("phone", phone)
+        .addParameter("stylist_id", stylist_id)
+        .addParameter("id", id)
+        .executeUpdate();
     }
   }
+
+  public void delete() {
+   try(Connection con = DB.sql2o.open()) {
+    String sql = "DELETE FROM clients WHERE id = :id;";
+    con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
+      }
+   }
+
 
 }

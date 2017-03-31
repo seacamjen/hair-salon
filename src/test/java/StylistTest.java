@@ -95,8 +95,18 @@ public class StylistTest {
    public void update_updatesStylist_true() {
      Stylist newStylist = new Stylist("Ashley", "805-466-1234");
      newStylist.save();
-     newStylist.update("Ashley Smith");
+     newStylist.update("Ashley Smith", "805-466-9876");
      assertEquals("Ashley Smith", Stylist.find(newStylist.getId()).getName());
+     assertEquals("805-466-9876", Stylist.find(newStylist.getId()).getPhone());
    }
+
+   @Test
+    public void delete_deleteStylist_true(){
+      Stylist myStylist = new Stylist("Ashley", "805-466-1234");
+      myStylist.save();
+      int myStylistId = myStylist.getId();
+      myStylist.delete();
+      assertEquals(null, Stylist.find(myStylistId));
+    }
 
 }
