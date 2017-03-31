@@ -1,0 +1,40 @@
+<!-- stylist.vtl -->
+ <h3>$stylist.getName()</h3>
+<h3>$stylist.getPhone()</h3>
+
+<form action="/stylists/$stylist.getId()/client" method="post">
+    <input type="hidden" name="stylistId" value="$stylist.getId()" id="stylistId">
+    <div class="form-group">
+      <label for="name">Client Name:</label>
+      <input name="name" type="text" id="name" class = "form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Client Phone:</label>
+      <input name="phone" type="text" id="phone" class = "form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
+
+
+<ul>
+  #foreach ($client in $clients)
+  <li><a href="/stylists/$stylist.getId()/client/$client.getId()">$client.getName()</a></li>
+  #end
+</ul>
+
+
+
+<a href="/">Home</a>
+<a href="/stylists/stylist.getId()/clients/form"></a>
+
+
+
+
+
+
+
+
+<!-- stylist.vtl -->

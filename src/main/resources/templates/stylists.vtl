@@ -1,0 +1,15 @@
+<!-- stylists.vtl -->
+
+<p>
+  list of all stylists
+</p>
+
+  <ul>
+    #foreach ($stylist in $stylists)
+      <li><a href="/stylists/$stylist.getId()">$stylist.getName()</a></li>
+    #end
+  </ul>
+
+<a href="/">Return to home page</a>
+
+<!-- stylists.vtl -->
