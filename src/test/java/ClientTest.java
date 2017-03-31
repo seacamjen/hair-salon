@@ -12,11 +12,34 @@ public class ClientTest {
   @After
   public void tearDown() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM name_of_your_table *;";
+      String sql = "DELETE FROM clients *;";
       con.createQuery(sql).executeUpdate();
     }
   }
 
-  
+  @Test
+  public void Client_instantiatesCorrectly_true(){
+    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    assertTrue(testClient instanceof Client);
+  }
+
+  @Test
+  public void getStylistId_instantiatesWithStylistId_true(){
+    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    assertEquals(1, testClient.getStylistId());
+  }
+
+  @Test
+  public void getName_instantiatesWithName_true(){
+    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    assertEquals("Barbara", testClient.getName());
+  }
+
+  @Test
+  public void getPhone_instantiatesWithPhone_true(){
+    Client testClient = new Client(1, "Barbara", "234-987-2342");
+    assertEquals("234-987-2342", testClient.getPhone());
+  }
+
 
 }
