@@ -1,0 +1,21 @@
+.jumbotron {
+  background-image: url(/images/header.png);
+  margin-top: 200px;
+  text-align: center;
+  color: black;
+  font-size: 125px;
+}
+
+.links {
+  font-size: 35px;
+  text-align: center;
+}
+
+.links a:hover {
+  color: green;
+  cursor: cell;
+}
+
+.alignRight {
+  text-align: right;
+}

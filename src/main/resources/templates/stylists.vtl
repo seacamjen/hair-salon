@@ -1,15 +1,17 @@
 <!-- stylists.vtl -->
-
-<p>
-  list of all stylists
-</p>
-
-  <ul>
-    #foreach ($stylist in $stylists)
-      <li><a href="/stylists/$stylist.getId()">$stylist.getName()</a></li>
-    #end
-  </ul>
-
-<a href="/">Return to home page</a>
-
+<h3>Our Professional Stylists: </h3>
+  #foreach ($stylist in $stylists)
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h2 class="panel title"><a href="/stylists/$stylist.getId()">$stylist.getName()</a></h2>
+      </div>
+      <div class="panel-body">
+        <img src="http://lorempixel.com/300/200/people" alt="random people">
+        <h5>Phone: $stylist.getPhone()</h5>
+      </div>
+    </div>
+  #end
+<div class="links">
+  <a href="/">Return to home page</a>
+</div>
 <!-- stylists.vtl -->

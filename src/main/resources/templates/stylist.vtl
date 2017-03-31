@@ -1,37 +1,77 @@
 <!-- stylist.vtl -->
- <h3>$stylist.getName()</h3>
-<h3>$stylist.getPhone()</h3>
 
-<form action="/stylists/$stylist.getId()/client" method="post">
-    <input type="hidden" name="stylistId" value="$stylist.getId()" id="stylistId">
-    <div class="form-group">
-      <label for="name">Client Name:</label>
-      <input name="name" type="text" id="name" class = "form-control" required>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      <h1>$stylist.getName()</h1>
+      <h3>Phone: $stylist.getPhone()</h3>
+      <div class="row">
+          <button id="update-btn" type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateStylist">Update Stylist</button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <h3>Clients: </h3>
+      <ul>
+        #foreach ($client in $stylist.getClients())
+        <li><a href="/stylists/$stylist.getId()/client/$client.getId()">$client.getName()</a></li>
+        #end
+      </ul>
     </div>
-    <div class="form-group">
-      <label for="phone">Client Phone:</label>
-      <input name="phone" type="text" id="phone" class = "form-control" required>
+    <div class="col-md-5">
+      <h2>Add a Client: </h2>
+      <form action="/stylists/$stylist.getId()" method="post">
+        <input id="stylistId" name="stylistId" type="hidden" value="$stylist.getId()">
+
+        <div class="form-group">
+          <label for="name">Client Name: $stylist.getId()</label>
+          <input name="name" type="text" id="name" class = "form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Client Phone:</label>
+          <input name="phone" type="text" id="phone" class = "form-control" required>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
     </div>
+  </div>
+</div>
 
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+<div class="links">
+  <a href="/">Home</a>
+  <a href="/stylists/stylist.getId()/clients/form"></a>
+</div>
 
-
-
-
-<ul>
-  #foreach ($client in $clients)
-  <li><a href="/stylists/$stylist.getId()/client/$client.getId()">$client.getName()</a></li>
-  #end
-</ul>
-
-
-
-<a href="/">Home</a>
-<a href="/stylists/stylist.getId()/clients/form"></a>
-
-
-
+<div id="updateStylist" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Update Stylist</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/stylists/$stylist.getId()/update" method="post">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" value="$stylist.getName()" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="text" value="$stylist.getPhone()" required>
+          </div>
+          <button type="submit" class="btn btn-default">Update Stylist Info</button>
+        </form>
+        <form action="/stylists/$stylist.getId()/delete" method="post">
+          <button type="submit" class="btn btn-default alignRight" id="deleteStylist">Delete $stylist.getName()</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
