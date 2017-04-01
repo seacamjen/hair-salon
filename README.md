@@ -2,10 +2,10 @@
 
 #### _hair-salon, 03-31-2017_
 
-#### By _**Cameron Jensen and **_
+#### By _**Cameron Jensen_
 
 ## Description
-_Example text for the description of the project_
+This app allows a hair salon to be able to manage their sylists and clients.
 
 
 ## Specifications
@@ -19,12 +19,23 @@ _Example text for the description of the project_
 |delete stylist|Samantha Brown, 800-7737| empty|
 |delete client | Betty 323-9890, Liz | empty |
 
+## Contact
+
+email: jensenseanc@gmail.com
+
+## Bugs / Issues
+
+currently when a stylist is deleted the clients are not moved anywhere, make sure to update client stylist before a stylist is deleted.
 
 ## Setup/Installation Requirements
 
-* _Clone the repository_
-* _Run the command 'gradle run'_
-* _Open browser and go to localhost:4567_
+* Open github https://github.com/seacamjen/hair-salon
+* Clone the repository
+* In PSQL: CREATE DATABASE hair_salon, \c hair_salon
+* CREATE TABLE stylists (id serial PRIMARY KEY, name varchar, phone varchar);
+* CREATE TABLE clients (id serial PRIMARY KEY, name varchar, phone varchar, stylist_id int);
+* Run the command 'gradle run'
+* Open browser and go to localhost:4567
 
 
 ### License

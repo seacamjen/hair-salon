@@ -16,6 +16,11 @@
   cursor: cell;
 }
 
-.alignRight {
-  text-align: right;
+.longImage {
+  max-height: 500px;
+  max-width: auto;
+}
+
+.alignCenter {
+  text-align: center;
 }

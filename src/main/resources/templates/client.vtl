@@ -1,13 +1,35 @@
 <!--client.vtl-->
-<h2>$client.getName()</h2>
-<h2>$client.getPhone()</h2>
-
-
-<a href="#"></a>
-
-<div class="row">
-    <button id="update-btn" type="button" class="btn btn-danger" data-toggle="modal" data-target="#updateClient">Update Client</button>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 longImage">
+      <img src="/images/leftclienthair.jpg" alt="hair styling">
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default alignCenter">
+        <div class="panel-body">
+          <h1>$client.getName()</h1>
+          <h3>Phone: $client.getPhone()</h3>
+          <br>
+          <br>
+          <br>
+          <div class="row">
+              <button id="update-btn" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#updateClient">Update Client</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 longImage">
+      <img src="/images/rightclienthair.jpg" alt="hair styling">
+    </div>
+  </div>
 </div>
+
+<div class="links">
+  <a href="/">Home</a>
+  <a href="/stylists/$stylist.getId()">Return</a>
+</div>
+
+
 
 <div id="updateClient" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -37,12 +59,13 @@
           </div>
           <button type="submit" class="btn btn-default">Update Client Info</button>
         </form>
-        <form action="/stylists/$stylist.getId()/clients/$client.getId()/delete" method="post">
-          <button type="submit" class="btn btn-default alignRight" id="deleteClient">Delete $client.getName()</button>
-        </form>
       </div>
       <div class="modal-footer">
+        <form action="/stylists/$stylist.getId()/clients/$client.getId()/delete" method="post">
+          <button type="submit" class="btn btn-danger" id="deleteClient">Delete $client.getName()</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </form>
+
       </div>
     </div>
   </div>
