@@ -1,0 +1,8 @@
+<!--client-reassign-->
+<h1>All Clients:</h1>
+#foreach ($client in $clients)
+<a href="/clients/$client.getId()"><button class="btn btn-success btn-block" type="click" name="button">$client.getName()</button></a>
+<br>
+<br>
+#end
+<!--client-reassign-->

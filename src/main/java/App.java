@@ -119,6 +119,43 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/clients", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("clients", Client.all());
+      model.put("stylist", Stylist.all());
+      model.put("template", "templates/all-clients.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
+    get("/clients/:id1", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Client client = Client.find(Integer.parseInt(request.params(":id1")));
+      model.put("client", client);
+      model.put("clients", Client.all());
+      model.put("stylists", Stylist.all());
+      model.put("template", "templates/client-update-stylist.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/clients/:id2/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Client client = Client.find(Integer.parseInt(request.params(":id2")));
+      client.delete();
+      String url = String.format("/clients");
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/clients/:id2/update", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Client client = Client.find(Integer.parseInt(request.params(":id2")));
+      String name = request.queryParams("name");
+      String phone = request.queryParams("phone");
+      int stylist_id = Integer.parseInt(request.queryParams("stylistId"));
+      client.update(name, phone, stylist_id);
+      String url = String.format("/clients");
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
